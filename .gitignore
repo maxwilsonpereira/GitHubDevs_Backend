@@ -1,0 +1,14 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+# To initialize:
+# git init
+
+/node_modules
+server.cert
+server.key
+
+.env
+nodemon.json
+
+DeploymentHowTo.txt
+access.log
+localRegister.txt
