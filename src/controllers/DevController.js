@@ -8,14 +8,11 @@
 // EXAMPLE: file frontend/DevForm/index.js
 
 // AXIOS library is used to allow the communication between APIs
-const axios = require("axios");
-const Dev = require("../models/Dev");
-const User = require("../models/User");
+const axios = require('axios');
+const Dev = require('../models/Dev');
+const User = require('../models/User');
 
 module.exports = {
-  // ASYNC / AWAIT because the communication with the API can take time
-  // the app will wait for the communication to end before continues
-
   // GET ALL DEVS FROM CURRENT USER****************************************
   async getDevs(req, res) {
     const userId = req.params.userId;
@@ -25,7 +22,7 @@ module.exports = {
         if (!user) {
           // 404: Not Found
           return res.status(404).json({
-            message: "User not found!",
+            message: 'User not found!',
           });
         } else {
           Dev.findOne({ user_id: userId })
@@ -42,16 +39,16 @@ module.exports = {
               console.log(err.message);
               // 500: Internal server error
               return res.status(500).json({
-                message: "Internal server error!",
+                message: 'Internal server error!',
               });
             });
         }
       })
       .catch((err) => {
         // 404: Not Found
-        console.log("User not found!");
+        console.log('User not found!');
         return res.status(404).json({
-          message: "User not found!",
+          message: 'User not found!',
         });
       });
   },
@@ -65,7 +62,7 @@ module.exports = {
         if (!user) {
           // 404: Not Found
           return response.status(404).json({
-            message: "User not found!",
+            message: 'User not found!',
           });
         } else {
           // POST: Getting infos from URL body request:
@@ -88,12 +85,12 @@ module.exports = {
                   // SPLIT to save each field as a element on the new string
                   // TRIM to remove any blank space before and on the end of a string
                   const techsArray = techs
-                    .split(",")
+                    .split(',')
                     .map((tech) => tech.trim());
 
                   // Saving location, or [1, 1] as default:
                   const location = {
-                    type: "Point",
+                    type: 'Point',
                     // coordinates: [longitude, latitude],
                     coordinates:
                       longitude.length < 1 || latitude.lenght < 1
@@ -121,12 +118,12 @@ module.exports = {
                         // 201: Created
                         return response
                           .status(201)
-                          .json({ message: "Developer saved!", newUser });
+                          .json({ message: 'Developer saved!', newUser });
                       })
                       .catch((err) => {
                         // 400: Bad request
                         return response.status(400).json({
-                          message: "Invalid coordinates!",
+                          message: 'Invalid coordinates!',
                         });
                       });
                   } else {
@@ -147,7 +144,7 @@ module.exports = {
                         // 403: Forbidden
                         return response
                           .status(403)
-                          .json({ message: "Developer already registered!" });
+                          .json({ message: 'Developer already registered!' });
                       } else {
                         Dev.update(
                           // WHICH ONE TO UPDATE:
@@ -164,7 +161,7 @@ module.exports = {
                           .then((res) => {
                             // 200: OK
                             return response.status(200).json({
-                              message: "Developer saved!",
+                              message: 'Developer saved!',
                             });
                           })
                           .catch((err) => {
@@ -178,12 +175,12 @@ module.exports = {
                   if (err.response.status === 403) {
                     // 403: Forbidden
                     return response.status(404).json({
-                      message: "API rate limit exceeded! Try in one hour!",
+                      message: 'API rate limit exceeded! Try in one hour!',
                     });
                   } else {
                     // 404: Not Found
                     return response.status(404).json({
-                      message: "GitHub username not found!",
+                      message: 'GitHub username not found!',
                       // message: "Username not found or Maximum requests!",
                     });
                   }
@@ -193,16 +190,16 @@ module.exports = {
               console.log(err.message);
               // 500: Internal server error
               return response.status(500).json({
-                message: "Internal server error!",
+                message: 'Internal server error!',
               });
             });
         }
       })
       .catch((err) => {
-        console.log("Wrong user ID format!");
+        console.log('Wrong user ID format!');
         // 400: Bad request
         return response.status(400).json({
-          message: "Wrong user ID format!",
+          message: 'Wrong user ID format!',
         });
       });
   },

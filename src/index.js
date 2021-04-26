@@ -1,4 +1,16 @@
-// DOTENV for hiding passwords and kyes:
+// *** When you change the start scrypt for production mode,
+// you must run nodemon app.js in development mode to run the
+// app with nodemon.
+
+// npm init -y
+// git init
+// create .gitignore and copy the main content
+// npm install nodemon
+// PACKAGE.JSON, ADD: "start": "nodemon src/index.js"
+// npm install express --save
+// npm install mongoose
+
+// DOTENV for hiding passwords and keys:
 // npm install dotenv
 // Create the .env file with the variables you will need.
 require("dotenv/config");
@@ -12,7 +24,7 @@ const mongoose = require("mongoose");
 // *** CORS to unlock database for other ports
 // IMPORTANT: NODE, by default just allow access from the same prompt.
 // React, by default, uses Port 3333. CORS will remove this lock.
-// INSTALL CORS: npm install cors
+// npm install cors
 const cors = require("cors");
 // *** HELMET is a middleware that will add security headers:
 // npm install --save helmet
@@ -29,7 +41,6 @@ const fs = require("fs");
 const path = require("path");
 // You must also add the const accessLogStream (ANY NAME!)
 
-// connection string from https://www.mongodb.com/cloud/atlas
 const app = express();
 
 // TO USE JSON: .use for ALL routes
@@ -78,6 +89,7 @@ app.use(routesFacebookApi);
 // DEV MODE with nodemon: declared on the nodemon.json file
 // PRODUCTION MODE: Use .env file with npm install dotenv, as done up above.
 // console.log(process.env.MONGO_USER);
+// connection string from https://www.mongodb.com/cloud/atlas
 const URI = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@cluster0-lywhn.mongodb.net/${process.env.MONGO_DEFAULT_DATABASE}?retryWrites=true&w=majority`;
 mongoose
   .connect(URI, {
